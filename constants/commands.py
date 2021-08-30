@@ -260,9 +260,12 @@ async def _map(user: Player, args: list) -> str:
 
     if status not in ('love', 'rank', 'unrank') or _type not in ('set', 'map'):
         return 'Invalid syntax! Command: !map <rank/love/unrank> <set/map>'
-
+      
+    if not user.np: return 'Please /np a map first!'    
+        
     bmap = user.np
     ns = mapStatuses.from_str(status)
+    
 
     if _type == 'map':
         bmap.status = ns
