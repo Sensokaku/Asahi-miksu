@@ -330,7 +330,6 @@ async def reqs(user: Player, _) -> str:
             if not _map:
                 continue # broken map we'll just skip to next one
 
-            mode = repr(osuModes(req['mode']))
             status = mapStatuses(req['status'])
 
             # TODO: CLEAN THESE GODDAMN FUCKING MENUS.
@@ -368,7 +367,7 @@ async def reqs(user: Player, _) -> str:
 
             ret.append(
                 f'Request #{idx + 1}: {req["requester"]} requested {_map.embed} to be {status.name.lower()} '
-                f'(Mode: {mode}) | {rank.embed}  {love.embed}  {deny.embed}'
+                f'{rank.embed}  {love.embed}  {deny.embed}'
             )
 
         return '\n'.join(ret)
@@ -389,7 +388,7 @@ async def req(user: Player, args: list) -> str:
 
     ns = mapStatuses.from_str(args[0])
 
-    await glob.db.execute('INSERT IGNORE INTO requests (requester, map, status, mode) VALUES (%s, %s, %s, %s)', [user.name, user.np.id, int(ns), user.mode_vn])
+    await glob.db.execute('INSERT IGNORE INTO requests (requester, map, status) VALUES (%s, %s, %s)', [user.name, user.np.id, int(ns)])
 
     if (wh_url := glob.config.webhooks['requests']):
         wh = Webhook(url=wh_url)
