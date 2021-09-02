@@ -8,7 +8,7 @@ py3rijndael
 aioredis
 fatfucksql
 circleguard
-maniera
+peace_performance_python
 cython
 plazy
 discord
